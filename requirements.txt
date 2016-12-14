@@ -1,0 +1,5 @@
+# pip requirements for this
+ansible
+functools32
+shade
+pytz

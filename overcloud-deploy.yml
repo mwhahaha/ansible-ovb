@@ -1,0 +1,35 @@
+---
+# needed to get the undercloud in our inventory
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: "flavor"
+      prompt: "Base OS Variant (centos|rhel)"
+      default: "centos"
+
+  tasks:
+  - include: tasks/undercloud-provision-centos.yml
+    when: flavor == "centos"
+  - include: tasks/undercloud-provision-rhel.yml
+    when: flavor == "rhel"
+
+# setup repos and deploy basic undercloud
+- hosts: undercloud
+  tags:
+    - overcloud
+  vars_prompt:
+    - name: "overcloud_flavor"
+      prompt: "Overcloud OS Variant (centos7|rhel7)"
+      default: "centos7"
+    - name: "version"
+      prompt: "Openstack Release version for repos (current|passed-ci|newton)"
+      default: "current"
+    - name: "inventory_file_source"
+      prompt: "Overcloud node inventory file"
+      default: "nodes.json"
+
+  tasks:
+    - include: tasks/overcloud-setup-images-current.yml
+    - include: tasks/overcloud-setup-upload-images.yml
+    - include: tasks/overcloud-setup-load-inventory.yml

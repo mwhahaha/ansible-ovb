@@ -1,0 +1,24 @@
+---
+- name: upload inventory
+  copy: src={{ inventory_file_source }} dest=/home/{{ undercloud_user }}/nodes.json
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"
+
+- name: import inventory
+  shell: |
+      source ~/stackrc
+      openstack baremetal import nodes.json
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"
+
+- name: inventory introspection
+  shell: |
+      source ~/stackrc
+      openstack baremetal introspection bulk start
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"
+
+

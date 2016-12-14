@@ -1,0 +1,27 @@
+---
+# variables for running localhost stuff
+
+# ovb cloud creds
+os_username: CHANGEME
+os_tenant_name: CHANGEME
+os_auth_url: CHANGEME
+os_password: CHANGEME
+
+# image list for the cloud
+glance_centos_image: CentOS-7-x86_64-GenericCloud
+glance_rhel_image: rhel-7.2-20160302.0-x86_64
+
+# rhn creds
+rhn_username: CHANGEME
+rhn_password: CHANGEME
+rhn_pool: CHANGEME
+
+# undercloud building vars
+undercloud_name: undercloud
+undercloud_flavor: undercloud
+undercloud_nics:
+  - net-name=private
+  - net-name=provision
+undercloud_floating_ips:
+  - CHANGEME
+undercloud_ssh_user: centos

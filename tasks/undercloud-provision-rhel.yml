@@ -1,0 +1,46 @@
+---
+- name: launch undercloud
+  os_server:
+    auth:
+      auth_url: "{{ os_auth_url }}"
+      username: "{{ os_username }}"
+      password: "{{ os_password }}"
+      project_name: "{{ os_tenant_name }}"
+    name: "{{ undercloud_name }}"
+    state: present
+    flavor: "{{ undercloud_flavor }}"
+    image: "{{ undercloud_image }}"
+    key_name: "default"
+    nics: "{{ undercloud_nics }}"
+    floating_ips: "{{ undercloud_floating_ips }}"
+  register: undercloud
+  tags:
+    - provision
+
+
+- include: tasks/undercloud-provision.yml
+
+- name: register with rhel
+  shell: |
+    subscription-manager register --auto-attach --username="{{ rhn_username }}" --password="{{ rhn_password }}"
+    subscription-manager attach --pool="{{ rhn_pool }}"
+  tags:
+    - provision
+
+- name: setup rhel repos
+  shell: |
+    subscription-manager repos --disable='*'
+    subscription-manager repos \
+      --enable rhel-7-server-rpms \
+      --enable rhel-7-server-extras-rpms \
+      --enable rhel-7-server-rh-common-rpms \
+      --enable rhel-7-server-optional-rpms
+      --enable rhel-ha-for-rhel-7-server-rpms \
+      --enable rhel-7-server-openstack-beta-rpms \
+      --enable rhel-7-server-beta-rpms \ # some python vars
+      --enable rhel-7-fast-datapath-htb-rpms \ # openvswitch
+      --enable rhel-7-server-rhceph-2-osd-rpms \
+      --enable rhel-7-server-rhceph-2-mon-rpms \
+  tags:
+    - provision
+

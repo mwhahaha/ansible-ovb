@@ -1,0 +1,32 @@
+---
+# setup undercloud vm
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tags:
+    - undercloud
+
+  vars_prompt:
+    - name: "flavor"
+      prompt: "Base OS Variant (centos|rhel)"
+      default: "centos"
+
+  tasks:
+  - include: tasks/undercloud-provision-centos.yml
+    when: flavor == "centos"
+  - include: tasks/undercloud-provision-rhel.yml
+    when: flavor == "rhel"
+
+# do the initial yum update -y && reboot
+- hosts: undercloud
+  tags:
+    - undercloud
+  tasks:
+    - name: update packages
+      yum: name=* state=latest
+      register: run_reboot
+      tags:
+        - provision
+
+    - include: tasks/reboot-server.yml
+      when: run_reboot.changed
