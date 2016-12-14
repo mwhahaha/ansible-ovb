@@ -12,7 +12,7 @@ Put your cloud credentials in host_vars/localhost.
 playbooks:
 - undercloud-provision.yml - sets up the undercloud node and gets it current (yum update/reboot)
 - undercloud-deploy.yml - goes throughthe undercloud setup process to end up with a functioning undercloud
--overcloud-deploy.yml - loads OVB inventory, introspection and overcloud image build (DOES NOT DEPLOY OVERCLOUD)
+- overcloud-deploy.yml - loads OVB inventory, introspection and overcloud image build (DOES NOT RUN OVERCLOUD DEPLOY)
 
 
 Running all at once to end up with an undercloud ready to do an 'openstack overcloud deploy':
