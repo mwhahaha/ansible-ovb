@@ -1,0 +1,25 @@
+---
+- name: install director images
+  yum: pkg={{item}} state=installed
+  with_items:
+    - rhosp-director-images
+    - rhosp-director-images-ipa
+
+- name: extract images
+  shell: |
+    mkdir ~/images
+    for I in /usr/share/rhosp-director-images/*-latest-*.tar
+    do
+      tar xvf $I -C ~/images
+    done
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"
+
+- name: upload images
+  shell: |
+      source ~/stackrc
+      openstack overcloud image upload --image-path ~/images/
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"

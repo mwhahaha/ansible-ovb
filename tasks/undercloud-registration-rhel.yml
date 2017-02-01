@@ -1,0 +1,28 @@
+---
+- name: register with rhel
+  shell: >
+    command -v subscription-manager >/dev/null 2>&1 || exit 0 ;
+    subscription-manager list | egrep "^Status:" | egrep -q '(Unknown|Not Subscribed)' || exit 0 ;
+    subscription-manager register --auto-attach --username="{{ rhn_username }}" --password="{{ rhn_password }}" ;
+    subscription-manager attach --pool="{{ rhn_pool }}" ;
+  tags:
+    - provision
+
+- name: setup rhel repos
+  shell: >
+    command -v subscription-manager >/dev/null 2>&1 || exit 0 ;
+    subscription-manager repos --disable='*' ;
+    subscription-manager repos
+    --enable rhel-7-server-rpms
+    --enable rhel-7-server-extras-rpms
+    --enable rhel-7-server-rh-common-rpms
+    --enable rhel-7-server-optional-rpms
+    --enable rhel-ha-for-rhel-7-server-rpms
+    --enable rhel-7-server-openstack-10-rpms # openvswitch
+    --enable rhel-7-server-openstack-beta-rpms
+    --enable rhel-7-server-beta-rpms # some python vars
+    --enable rhel-7-server-rhceph-2-osd-rpms
+    --enable rhel-7-server-rhceph-2-mon-rpms ;
+  tags:
+    - provision
+

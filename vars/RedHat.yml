@@ -1,0 +1,9 @@
+---
+undercloud_user: cloud-user
+overcloud_flavor: rhel7
+
+# rhn creds
+rhn_username: CHANGEME
+rhn_password: CHANGEME
+rhn_pool: CHANGEME
+

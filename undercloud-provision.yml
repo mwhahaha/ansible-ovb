@@ -21,7 +21,14 @@
 - hosts: undercloud
   tags:
     - undercloud
+  gather_facts: true
   tasks:
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/default.yml"
+    - include: tasks/undercloud-registration-rhel.yml
+      when: ansible_distribution == "RedHat"
     - name: update packages
       yum: name=* state=latest
       register: run_reboot

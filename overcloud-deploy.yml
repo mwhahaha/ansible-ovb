@@ -18,10 +18,8 @@
 - hosts: undercloud
   tags:
     - overcloud
+  gather_facts: true
   vars_prompt:
-    - name: "overcloud_flavor"
-      prompt: "Overcloud OS Variant (centos7|rhel7)"
-      default: "centos7"
     - name: "version"
       prompt: "Openstack Release version for repos (current|passed-ci|newton)"
       default: "current"
@@ -30,6 +28,14 @@
       default: "nodes.json"
 
   tasks:
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/default.yml"
     - include: tasks/overcloud-setup-images-current.yml
-    - include: tasks/overcloud-setup-upload-images.yml
+      when: ansible_distribution == "CentOS" and version == "newton"
+    - include: tasks/overcloud-setup-images-current.yml
+      when: ansible_distribution == "CentOS" and version != "current"
+    - include: tasks/overcloud-setup-images-rhel.yml
+      when: ansible_distribution == "RedHat"
     - include: tasks/overcloud-setup-load-inventory.yml

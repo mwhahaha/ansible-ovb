@@ -21,12 +21,19 @@
 - hosts: undercloud
   tags:
     - undercloud
+  gather_facts: true
   vars_prompt:
     - name: "version"
       prompt: "Openstack Release version for repos (current|passed-ci|newton)"
       default: "current"
 
   tasks:
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/default.yml"
     - include: tasks/undercloud-setup-repos-{{version}}.yml
+      when: ansible_distribution == "CentOS"
     - include: tasks/undercloud-setup-repos-ceph.yml
+      when: ansible_distribution == "CentOS"
     - include: tasks/undercloud-setup-software.yml
