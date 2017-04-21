@@ -4,7 +4,7 @@
       source ~/stackrc
       export NODE_DIST="{{overcloud_flavor}}"
       export USE_DELOREAN_TRUNK=1
-      export DELOREAN_TRUNK_REPO="http://buildlogs.centos.org/centos/7/cloud/x86_64/rdo-trunk-master-tripleo/"
+      export DELOREAN_TRUNK_REPO="https://trunk.rdoproject.org/centos7-master/current-tripleo/"
       export DELOREAN_REPO_FILE="delorean.repo"
       export DIB_YUM_REPO_CONF=/etc/yum.repos.d/delorean*
       export DIB_YUM_REPO_CONF="$DIB_YUM_REPO_CONF /etc/yum.repos.d/CentOS-Ceph-Jewel.repo"

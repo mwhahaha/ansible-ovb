@@ -1,6 +1,6 @@
 ---
 - get_url:
-    url:  https://trunk.rdoproject.org/centos7-newton/current/delorean.repo
+    url:  https://trunk.rdoproject.org/centos7-newton/current-passed-ci/delorean.repo
     dest: /etc/yum.repos.d/delorean.repo
   tags:
     - setup
