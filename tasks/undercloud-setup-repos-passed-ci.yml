@@ -6,7 +6,7 @@
     - setup
 
 - get_url:
-    url: http://trunk.rdoproject.org/centos7/current-passed-ci/delorean.repo
+    url: https://trunk.rdoproject.org/centos7/current/delorean.repo
     dest: /etc/yum.repos.d/delorean-current.repo
   tags:
     - setup
