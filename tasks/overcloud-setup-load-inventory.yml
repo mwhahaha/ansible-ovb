@@ -8,7 +8,8 @@
 - name: import inventory
   shell: |
       source ~/stackrc
-      openstack baremetal import nodes.json
+      openstack overcloud node import --introspect --provide nodes.json
+
   tags:
     - setup
   become_user: "{{ undercloud_user }}"
