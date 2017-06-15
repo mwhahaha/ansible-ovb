@@ -5,7 +5,7 @@
     - setup
   become_user: "{{ undercloud_user }}"
 
-- name: import inventory
+- name: import and introspect inventory
   shell: |
       source ~/stackrc
       openstack overcloud node import --introspect --provide nodes.json
@@ -13,14 +13,3 @@
   tags:
     - setup
   become_user: "{{ undercloud_user }}"
-
-- name: inventory introspection
-  shell: |
-      source ~/stackrc
-      #openstack baremetal introspection bulk start
-      openstack overcloud node introspect --all-manageable
-  tags:
-    - setup
-  become_user: "{{ undercloud_user }}"
-
-
