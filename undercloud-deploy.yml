@@ -24,7 +24,7 @@
   gather_facts: true
   vars_prompt:
     - name: "version"
-      prompt: "Openstack Release version for repos (current|passed-ci|newton)"
+      prompt: "Openstack Release version for repos (current|passed-ci|newton|ocata)"
       default: "current"
 
   tasks:

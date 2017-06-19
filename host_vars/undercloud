@@ -1,1 +1,3 @@
 ---
+undercloud_public_host: rdo-undercloud.local
+undercloud_generate_certs: true
