@@ -9,7 +9,6 @@
   shell: |
       source ~/stackrc
       openstack overcloud node import --introspect --provide nodes.json
-
   tags:
     - setup
   become_user: "{{ undercloud_user }}"

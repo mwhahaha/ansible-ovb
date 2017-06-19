@@ -1,11 +1,7 @@
 ---
 - name: launch undercloud
   os_server:
-    auth:
-      auth_url: "{{ os_auth_url }}"
-      username: "{{ os_username }}"
-      password: "{{ os_password }}"
-      project_name: "{{ os_tenant_name }}"
+    cloud: "{{ os_cloud }}"
     name: "{{ undercloud_name }}"
     state: present
     flavor: "{{ undercloud_flavor }}"
