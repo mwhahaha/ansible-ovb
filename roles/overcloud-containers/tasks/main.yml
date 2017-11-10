@@ -12,7 +12,6 @@
         --namespace 192.168.24.1:8787/master \
         --tag tripleo-ci-testing \
         --output-env-file ~/docker_registry.yaml
-      echo "  DockerInsecureRegistryAddress: 192.168.24.1:8787" >> ~/docker_registry.yaml
   tags:
     - setup
   when: containers_enabled|bool
