@@ -1,0 +1,16 @@
+---
+- name: introspect inventory
+  shell: |
+      source ~/stackrc
+      openstack overcloud node introspect --all-manageable
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"
+
+- name: provide nodes
+  shell: |
+      source ~/stackrc
+      openstack overcloud node provide --all-manageable
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"

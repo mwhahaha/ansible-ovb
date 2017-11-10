@@ -1,0 +1,4 @@
+---
+- import_tasks: load-inventory.yml
+
+- import_tasks: register-nodes.yml

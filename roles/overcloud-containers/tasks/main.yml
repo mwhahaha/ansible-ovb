@@ -1,0 +1,19 @@
+---
+- name: overcloud-containers - fetch docker images
+  shell: |
+      source ~/stackrc
+      openstack overcloud container image prepare \
+        --namespace trunk.registry.rdoproject.org/master \
+        --tag tripleo-ci-testing \
+        --push-destination 192.168.24.1:8787 \
+        --output-images-file ~/overcloud_containers.yaml
+      openstack overcloud container image upload --config-file ~/overcloud_containers.yaml
+      openstack overcloud container image prepare \
+        --namespace 192.168.24.1:8787/master \
+        --tag tripleo-ci-testing \
+        --output-env-file ~/docker_registry.yaml
+      echo "  DockerInsecureRegistryAddress: 192.168.24.1:8787" >> ~/docker_registry.yaml
+  tags:
+    - setup
+  when: containers_enabled|bool
+  become_user: "{{ undercloud_user }}"

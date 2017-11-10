@@ -1,0 +1,10 @@
+---
+- include_tasks: ceph.yml
+  tags: undercloud-repo-setup
+
+- include_tasks: "{{ version }}.yml"
+  tags: undercloud-repo-setup
+
+- include_tasks: update.yml
+  tags: undercloud-repo-setup
+  when: update_undercloud|bool

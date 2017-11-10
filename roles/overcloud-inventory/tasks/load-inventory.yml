@@ -1,0 +1,17 @@
+---
+- name: upload inventory
+  copy: src={{ inventory_file_source }} dest=/home/{{ undercloud_user }}/nodes.json
+  tags:
+    - setup
+  register: inventory_changed
+  become_user: "{{ undercloud_user }}"
+
+- name: load inventory into ironic
+  shell: |
+      source ~/stackrc
+      openstack overcloud node import nodes.json
+  tags:
+    - setup
+  when: inventory_changed.changed
+  become_user: "{{ undercloud_user }}"
+

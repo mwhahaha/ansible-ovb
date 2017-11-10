@@ -1,8 +1,0 @@
----
-- name: upload images
-  shell: |
-      source ~/stackrc
-      openstack overcloud image upload
-  tags:
-    - setup
-  become_user: "{{ undercloud_user }}"

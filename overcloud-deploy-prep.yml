@@ -1,0 +1,37 @@
+---
+# setup undercloud vm
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tags:
+    - undercloud
+  vars_prompt:
+    - name: "flavor"
+      prompt: "Base OS Variant (centos|rhel)"
+      default: "centos"
+  roles:
+      - undercloud-provision
+
+# do the initial yum update -y && reboot
+- hosts: undercloud
+  tags:
+    - undercloud
+  gather_facts: true
+  vars_prompt:
+    - name: "containers_enabled"
+      prompt: "Enable container setup?"
+      default: "yes"
+    - name: "version"
+      prompt: "Version to deploy (current|passed-ci|pike|ocata|newton)?"
+      default: "passed-ci"
+  tasks:
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/default.yml"
+    - include_role:
+        name: overcloud-images
+    - include_role:
+        name: overcloud-containers
+    - include_role:
+        name: overcloud-inventory

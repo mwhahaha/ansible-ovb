@@ -1,0 +1,14 @@
+---
+- name: get delorean branch repo
+  get_url:
+    url:  https://trunk.rdoproject.org/centos7-newton/current-passed-ci/delorean.repo
+    dest: /etc/yum.repos.d/delorean.repo
+  tags:
+    - setup
+
+- name: get delorean deps repo
+  get_url:
+    url:  http://trunk.rdoproject.org/centos7-newton/delorean-deps.repo
+    dest: /etc/yum.repos.d/delorean-deps.repo
+  tags:
+    - setup

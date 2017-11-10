@@ -1,0 +1,14 @@
+---
+- name: launch (centos)
+  os_server:
+    cloud: "{{ os_cloud }}"
+    name: "{{ undercloud_name }}"
+    state: present
+    flavor: "{{ undercloud_flavor }}"
+    image: "{{ glance_centos_image }}"
+    key_name: "default"
+    nics: "{{ undercloud_nics }}"
+    floating_ips: "{{ undercloud_floating_ips }}"
+  register: undercloud
+  tags:
+    - provision

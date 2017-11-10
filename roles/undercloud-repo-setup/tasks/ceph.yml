@@ -1,0 +1,10 @@
+---
+- name: setup ceph repos
+  shell: |
+    yum-config-manager --add-repo https://raw.githubusercontent.com/CentOS-Storage-SIG/centos-release-ceph-jewel/master/CentOS-Ceph-Jewel.repo
+    yum-config-manager --disable centos-ceph-jewel
+    yum-config-manager --enable centos-ceph-jewel-test
+    sed -i -e 's%gpgcheck=.*%gpgcheck=0%' /etc/yum.repos.d/CentOS-Ceph-Jewel.repo
+  become: true
+  tags:
+    - setup

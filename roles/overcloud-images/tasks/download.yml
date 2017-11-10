@@ -1,0 +1,26 @@
+---
+- name: download overcloud-full.tar
+  get_url:
+    url: "{{ overcloud_images_tar }}"
+    dest: "/home/{{ undercloud_user }}/overcloud-full.tar"
+    owner: "{{ undercloud_user }}"
+    group: "{{ undercloud_user }}"
+
+- name: download ipa-images.tar
+  get_url:
+    url: "{{ ipa_images_tar }}"
+    dest: "/home/{{ undercloud_user }}/ipa-images.tar"
+    owner: "{{ undercloud_user }}"
+    group: "{{ undercloud_user }}"
+
+- name: extract overcloud-full.tar
+  unarchive:
+    remote_src: yes
+    src: "/home/{{ undercloud_user }}/overcloud-full.tar"
+    dest: "/home/{{ undercloud_user }}/"
+
+- name: extract ipa-images.tar
+  unarchive:
+    remote_src: yes
+    src: "/home/{{ undercloud_user }}/ipa-images.tar"
+    dest: "/home/{{ undercloud_user }}/"

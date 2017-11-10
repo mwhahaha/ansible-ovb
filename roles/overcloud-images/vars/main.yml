@@ -1,0 +1,4 @@
+---
+images_build: False
+overcloud_images_tar: http://66.187.229.139/builds-master/current-tripleo/overcloud-full.tar
+ipa_images_tar: http://66.187.229.139/builds-master/current-tripleo/ironic-python-agent.tar

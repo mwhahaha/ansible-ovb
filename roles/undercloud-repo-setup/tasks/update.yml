@@ -1,0 +1,7 @@
+---
+- name: update all packages
+  yum: name=* state=latest
+  register: run_reboot
+
+- include_tasks: reboot-server.yml
+  when: run_reboot.changed

@@ -1,0 +1,7 @@
+---
+# default flavor to use for the undercloud
+flavor: centos
+# default version of tripleo & openstack to use
+version: passed-ci
+# default value to pull down container images
+containers_enabled: true

@@ -1,0 +1,14 @@
+---
+- include_tasks: build.yml
+  when: images_build|bool
+  tag:
+    - overcloud-images
+
+- include_tasks: download.yml
+  when: not images_build|bool
+  tag:
+    - overcloud-images
+
+- include_tasks: upload.yml
+  tag:
+    - overcloud-images

@@ -1,0 +1,23 @@
+---
+- include_tasks: "provision-{{ flavor }}.yml"
+
+- add_host:
+    name: undercloud
+    groups: openstack
+    ansible_host: "{{ undercloud.server.public_v4 }}"
+    ansible_user: "{{ undercloud_ssh_user }}"
+    ansible_become: true
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no' # we reuse the floating ip sooooOooOo ignore it
+  tags:
+    - provision
+
+- name: wait for server to start
+  command: >
+    ssh -o BatchMode=yes -o StrictHostKeyChecking=no
+    {{ undercloud_ssh_user }}@{{ undercloud.server.public_v4 }} true
+  register: result
+  until: result|success
+  retries: 300
+  delay: 5
+  tags:
+    - provision
