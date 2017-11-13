@@ -1,6 +1,7 @@
 ---
 - get_url:
-    url: https://trunk.rdoproject.org/centos7-master/current-tripleo/delorean.repo
+    #url: https://trunk.rdoproject.org/centos7-master/current-tripleo/delorean.repo
+    url: https://trunk.rdoproject.org/centos7-master/current/delorean.repo
     dest: /etc/yum.repos.d/delorean.repo
   tags:
     - setup

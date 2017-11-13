@@ -3,6 +3,7 @@
   shell: >
     command -v subscription-manager >/dev/null 2>&1 || exit 0 ;
     subscription-manager list | egrep "^Status:" | egrep -q '(Unknown|Not Subscribed)' || exit 0 ;
+    subscription-manager clean ;
     subscription-manager register --auto-attach --username="{{ rhn_username }}" --password="{{ rhn_password }}" ;
     subscription-manager attach --pool="{{ rhn_pool }}" ;
   tags:

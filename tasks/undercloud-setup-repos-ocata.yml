@@ -1,0 +1,12 @@
+---
+- get_url:
+    url:  https://trunk.rdoproject.org/centos7-ocata/current-passed-ci/delorean.repo
+    dest: /etc/yum.repos.d/delorean.repo
+  tags:
+    - setup
+
+- get_url:
+    url:  http://trunk.rdoproject.org/centos7-ocata/delorean-deps.repo
+    dest: /etc/yum.repos.d/delorean-deps.repo
+  tags:
+    - setup

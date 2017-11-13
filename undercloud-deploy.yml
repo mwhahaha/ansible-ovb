@@ -24,7 +24,7 @@
   gather_facts: true
   vars_prompt:
     - name: "version"
-      prompt: "Openstack Release version for repos (current|passed-ci|newton)"
+      prompt: "Openstack Release version for repos (current|passed-ci|newton|ocata|pike)"
       default: "current"
 
   tasks:
@@ -36,4 +36,5 @@
       when: ansible_distribution == "CentOS"
     - include: tasks/undercloud-setup-repos-ceph.yml
       when: ansible_distribution == "CentOS"
+    - include: tasks/undercloud-setup-host.yml
     - include: tasks/undercloud-setup-software.yml

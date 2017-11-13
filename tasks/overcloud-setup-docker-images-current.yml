@@ -1,0 +1,12 @@
+---
+- name: fetch docker images
+  shell: |
+      source ~/stackrc
+      openstack overcloud container image prepare --namespace tripleoupstream --tag latest --push-destination 192.168.24.1:8787 --env-file ~/docker_registry.yaml
+      openstack overcloud container image upload --config-file ~docker_registry.yaml
+      openstack overcloud container image prepare --namespace 192.168.24.1:8787/tripleoupstream --tag latest --env-file ~/docker_registry.yaml
+      echo "  DockerInsecureRegistryAddress: 192.168.24.1:8787" >>   ~/docker_registry.yaml
+
+  tags:
+    - setup
+  become_user: "{{ undercloud_user }}"

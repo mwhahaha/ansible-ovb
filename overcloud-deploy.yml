@@ -21,7 +21,7 @@
   gather_facts: true
   vars_prompt:
     - name: "version"
-      prompt: "Openstack Release version for repos (current|passed-ci|newton)"
+      prompt: "Openstack Release version for repos (current|passed-ci|newton|ocata)"
       default: "current"
     - name: "inventory_file_source"
       prompt: "Overcloud node inventory file"
@@ -32,10 +32,10 @@
       with_first_found:
         - "vars/{{ ansible_distribution }}.yml"
         - "vars/default.yml"
-    - include: tasks/overcloud-setup-images-current.yml
-      when: ansible_distribution == "CentOS" and version == "newton"
-    - include: tasks/overcloud-setup-images-current.yml
-      when: ansible_distribution == "CentOS" and version != "current"
+    - include: tasks/overcloud-setup-images-{{ version }}.yml
+      when: ansible_distribution == "CentOS"
+    - include: tasks/overcloud-setup-docker-images-{{ version }}.yml
+      when: ansible_distribution == "CentOS"
     - include: tasks/overcloud-setup-images-rhel.yml
       when: ansible_distribution == "RedHat"
     - include: tasks/overcloud-setup-load-inventory.yml
