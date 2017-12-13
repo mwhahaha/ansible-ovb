@@ -22,7 +22,7 @@
       prompt: "Enable container setup?"
       default: "yes"
     - name: "version"
-      prompt: "Version to deploy (current|passed-ci|pike|ocata|newton)?"
+      prompt: "Version to deploy (current|passed-ci|pike|ocata|newton|rhel)?"
       default: "passed-ci"
   tasks:
     - include_vars: "{{ item }}"

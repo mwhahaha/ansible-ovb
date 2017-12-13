@@ -1,6 +1,7 @@
 ---
 - include_tasks: ceph.yml
   tags: undercloud-repo-setup
+  when: version != "rhel"
 
 - include_tasks: "{{ version }}.yml"
   tags: undercloud-repo-setup

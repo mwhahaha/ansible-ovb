@@ -1,11 +1,16 @@
 ---
 - include_tasks: build.yml
-  when: images_build|bool
+  when: images_build|bool and flavor != "rhel"
   tag:
     - overcloud-images
 
 - include_tasks: download.yml
-  when: not images_build|bool
+  when: not images_build|bool and flavor != "rhel"
+  tag:
+    - overcloud-images
+
+- include_tasks: rhel.yml
+  when: flavor == "rhel"
   tag:
     - overcloud-images
 

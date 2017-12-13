@@ -1,0 +1,20 @@
+---
+- name: install director images
+  yum:
+    name: rhosp-director-images
+    state: latest
+  register: director_images
+
+- name: install ipa images
+  yum:
+    name: rhosp-director-images-ipa
+    state: latest
+  register: ipa_images
+
+- name: extract images
+  when: ipa_images or director_images
+  shell: |
+    for F in `find /usr/share/rhosp-director-images/ -iname '*.tar'`; do
+      tar --overwrite -C /home/{{ undercloud_user }} -xvf $F
+    done
+
