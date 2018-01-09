@@ -1,2 +1,4 @@
 ---
 update_undercloud: True
+branch_version: master
+version: curren-tripleo-dev

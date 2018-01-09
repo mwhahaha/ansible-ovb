@@ -1,0 +1,13 @@
+---
+- name: install dependencies to install tripleo-repos via pip
+  package: name={{ item }} state=installed
+  with_items:
+    - python-pip
+    - git
+
+- pip:
+    name: git+https://github.com/openstack/tripleo-repos
+
+- name: run tripleo-repos
+  shell: tripleo-repos -b {{ branch_version|default('master') }} {{ version }} ceph
+
