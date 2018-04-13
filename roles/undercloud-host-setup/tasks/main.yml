@@ -4,3 +4,6 @@
 
 - include_tasks: hostname.yml
   tags: undercloud-host-setup
+
+- include_tasks: dns.yml
+  tags: undercloud-host-setup

@@ -1,0 +1,24 @@
+---
+
+- name: overcloud deploy (containers)
+  shell: >
+      source ~/stackrc &&
+      openstack overcloud deploy
+      --templates
+      -e /usr/share/openstack-tripleo-heat-templates/environments/enable-swap.yaml
+      -e /usr/share/openstack-tripleo-heat-templates/environments/docker.yaml
+      -e "/home/{{ undercloud_user }}/docker_registry.yaml"
+      | tee "/home/{{ undercloud_user }}/deploy.log"
+  when: deploy_test|bool and  containers_enabled|bool
+  become_user: "{{ undercloud_user }}"
+
+- name: overcloud deploy (baremetal)
+  shell: >
+      source ~/stackrc &&
+      openstack overcloud deploy
+      --templates
+      -e /usr/share/openstack-tripleo-heat-templates/environments/enable-swap.yaml
+      | tee "/home/{{ undercloud_user }}/deploy.log"
+  when: deploy_test|bool and not containers_enabled|bool
+  become_user: "{{ undercloud_user }}"
+

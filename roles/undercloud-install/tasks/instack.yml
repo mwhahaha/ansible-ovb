@@ -1,0 +1,34 @@
+---
+- name: yum clean all
+  shell: yum clean all
+  tags:
+    - setup
+
+- name: install yum-plugin-priorities
+  yum: name=yum-plugin-priorities state=installed
+  tags:
+    - setup
+
+- name: install tripleo
+  yum: name=python-tripleoclient state=installed
+  tags:
+    - setup
+
+- name: configure mtu for undercloud
+  shell: |
+    cp /usr/share/instack-undercloud/undercloud.conf.sample ~/undercloud.conf
+    sed -i -e "s/#enable_telemetry = true/enable_telemetry = false/" ~/undercloud.conf
+    sed -i -e "s/#undercloud_debug = true/undercloud_debug = false/" ~/undercloud.conf
+    sed -i -e "s/#local_mtu = 1500/local_mtu = 1400/" ~/undercloud.conf
+    sed -i -e "s/#local_interface = eth1/local_interface = eth1/" ~/undercloud.conf
+    #sed -i -e "s/#undercloud_public_host = 192.168.24.2/undercloud_public_host = {{ undercloud_public_host }}/" ~/undercloud.conf
+    #sed -i -e "s/#generate_service_certificate = false/generate_service_certificate = {{ undercloud_generate_certs }}/" ~/undercloud.conf
+  become_user: "{{ undercloud_user }}"
+  tags:
+    - setup
+
+- name: install undercloud
+  shell: openstack undercloud install
+  become_user: "{{ undercloud_user }}"
+  tags:
+    - setup

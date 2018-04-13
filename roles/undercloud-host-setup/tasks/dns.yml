@@ -1,0 +1,13 @@
+- name: FIXME - remove nameservers
+  command: |
+    sed -i '/nameserver/d' /etc/resolv.conf
+  become: true
+
+- name: FIXME - add local nameservers
+  lineinfile:
+    dest: /etc/resolv.conf
+    line: "{{ item }}"
+  with_items:
+      - "nameserver 1.1.1.1"
+      - "nameserver 1.0.0.1"
+  become: true

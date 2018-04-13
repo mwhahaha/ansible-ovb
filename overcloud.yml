@@ -21,9 +21,12 @@
     - name: "containers_enabled"
       prompt: "Enable container setup?"
       default: "yes"
+    - name: "deploy_test"
+      prompt: "Do a basic deploy?"
+      default: "no"
     - name: "version"
-      prompt: "Version to deploy (current|passed-ci|pike|ocata|newton|rhel)?"
-      default: "passed-ci"
+      prompt: "Version to deploy (current|consistent|current-tripleo|pike|ocata|newton|rhel)?"
+      default: "current-tripleo"
   tasks:
     - include_vars: "{{ item }}"
       with_first_found:
@@ -35,3 +38,5 @@
         name: overcloud-containers
     - include_role:
         name: overcloud-inventory
+    - include_role:
+        name: overcloud-deploy
