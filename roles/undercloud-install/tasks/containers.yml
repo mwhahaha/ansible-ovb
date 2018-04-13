@@ -27,8 +27,8 @@
   tags:
     - setup
 
-#- name: install undercloud
-#  shell: openstack undercloud install
-#  become_user: "{{ undercloud_user }}"
-#  tags:
-#    - setup
+- name: install undercloud
+  shell: openstack undercloud install --use-heat
+  become_user: "{{ undercloud_user }}"
+  tags:
+    - setup
