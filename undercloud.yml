@@ -30,5 +30,5 @@
         name: undercloud-host-setup
     - include_role:
         name: undercloud-repo-setup
-#    - include_role:
-#        name: undercloud-install
+    - include_role:
+        name: undercloud-install
