@@ -12,7 +12,7 @@
 - block:
     - name: get current-tripleo repo
       get_url:
-        url: https://trunk.rdoproject.org/centos7-master/current-tripleo/delorean.repo
+        url: {{ tripleo_repos_repo_file_url }}
         dest: /etc/yum.repos.d/delorean.repo
       tags:
         - setup
@@ -24,7 +24,7 @@
       file:
         path: /etc/yum.repos.d/delorean.repo
         state: absent
-  when: pkg.results|selectattr("yumstate", "match", "installed")|list|length != 0
+#when: not pkg or pkg.results|selectattr("yumstate", "match", "installed")|list|length != 0
 
 - name: run tripleo-repos
   shell: tripleo-repos -b {{ branch_version|default('master') }} {{ version }} ceph

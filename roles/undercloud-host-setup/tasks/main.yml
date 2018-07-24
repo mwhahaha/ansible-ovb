@@ -7,3 +7,4 @@
 
 - include_tasks: dns.yml
   tags: undercloud-host-setup
+  when: undercloud_host_setup_dns|bool

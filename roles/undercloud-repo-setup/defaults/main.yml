@@ -1,0 +1,4 @@
+---
+rhos_release_version: 14
+#rhos_release_repo_url: http://CHANGEME/OpenStack/rhos-release/
+tripleo_repos_repo_file_url: https://trunk.rdoproject.org/centos7-master/current-tripleo/delorean.repo

@@ -1,0 +1,3 @@
+[submodule "roles/ansible-role-container-registry"]
+	path = roles/ansible-role-container-registry
+	url = https://github.com/openstack/ansible-role-container-registry
