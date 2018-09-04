@@ -1,0 +1,9 @@
+---
+flavor: rhel
+version: rhos-release
+undercloud_host_setup_dns: False
+rhos_release_version: 13
+undercloud_instack: True
+undercloud_containers: False
+containers_enabled: yes
+deploy_test: yes
