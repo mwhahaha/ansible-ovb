@@ -1,3 +1,4 @@
 ---
 - hostname:
     name: "{{ undercloud_hostname }}"
+  become: true

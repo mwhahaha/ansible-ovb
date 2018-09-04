@@ -12,7 +12,7 @@
 - block:
     - name: get current-tripleo repo
       get_url:
-        url: {{ tripleo_repos_repo_file_url }}
+        url: "{{ tripleo_repos_repo_file_url }}"
         dest: /etc/yum.repos.d/delorean.repo
       tags:
         - setup

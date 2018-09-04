@@ -19,12 +19,12 @@
   gather_facts: true
   vars_prompt:
     - name: "version"
-      prompt: "Version to deploy (current|consistent|current-tripleo|pike|ocata|newton|rhel)?"
+      prompt: "Version to deploy (current|consistent|current-tripleo|pike|ocata|newton|rhel|rhos-release)?"
       default: "current-tripleo"
   tasks:
     - include_vars: "{{ item }}"
       with_first_found:
-        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/os/{{ ansible_distribution }}.yml"
         - "vars/default.yml"
     - include_role:
         name: undercloud-host-setup

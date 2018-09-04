@@ -30,7 +30,7 @@
   tasks:
     - include_vars: "{{ item }}"
       with_first_found:
-        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/os/{{ ansible_distribution }}.yml"
         - "vars/default.yml"
     - include_role:
         name: overcloud-images

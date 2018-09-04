@@ -28,7 +28,8 @@
     - setup
 
 - name: install undercloud
-  shell: openstack undercloud install --use-heat
+  shell: openstack undercloud install {{ undercloud_install_opts|default('') }}
   become_user: "{{ undercloud_user }}"
   tags:
     - setup
+  when: not undercloud_skip_install|bool

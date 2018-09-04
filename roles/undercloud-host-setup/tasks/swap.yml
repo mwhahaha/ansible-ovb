@@ -15,30 +15,36 @@
   environment:
     PATH: "{{ (ansible_env|default({})).PATH|default('') }}:/usr/local/sbin:/usr/sbin:/sbin"
   register: write_swapfile
+  become: true
   when: not swapfile.stat.exists
 
 - name: set swapfile permissions
   file: path={{ swapfile_path }} mode=600
+  become: true
 
 - name: create swapfile
   command: mkswap {{ swapfile_path }}
   environment:
     PATH: "{{ (ansible_env|default({})).PATH|default('') }}:/usr/local/sbin:/usr/sbin:/sbin"
   register: swapfile_created
+  become: true
   when: write_swapfile.changed
 
 - name: enable swapfile
   command: swapon {{ swapfile_path }}
   environment:
     PATH: "{{ (ansible_env|default({})).PATH|default('') }}:/usr/local/sbin:/usr/sbin:/sbin"
+  become: true
   when: swapfile_created.changed
 
 - name: Add swapfile to /etc/fstab
   lineinfile: dest=/etc/fstab line="{{ swapfile_path }}   none    swap    sw    0   0" state=present
+  become: true
   when: swapfile_created.changed
 
 - name: Configure vm.swappiness
   lineinfile: dest=/etc/sysctl.conf line="vm.swappiness = {{ swapfile_swappiness }}" regexp="^vm.swappiness[\s]?=" state=present
   notify: sysctl reload
+  become: true
   when: swapfile_swappiness != False
 
